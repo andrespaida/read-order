@@ -17,10 +17,12 @@ jobs:
       run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
     - name: Build Docker image
-      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/read-order:latest .
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/read-order:latest .
 
     - name: Push image to Docker Hub
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/read-order:latest
+      run: |
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/read-order:latest
 
     - name: SSH & deploy to EC2
       uses: appleboy/ssh-action@master
